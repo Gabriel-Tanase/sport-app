@@ -5,8 +5,8 @@ import { useSelector } from "react-redux";
 import { getUser } from "../../../redux/selectors";
 
 import { PagePropsType } from "../../../shared/shared.interface";
-import { Profile } from "../../../schemas/profile";
-import { User } from "../../../schemas/user";
+import { Profile } from "../../../shared/shared.interface";
+import { User } from "../../../shared/shared.interface";
 
 import { ProfileHeader } from "../../../components/Profile/ProfileHeader";
 
