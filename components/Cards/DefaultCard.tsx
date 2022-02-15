@@ -16,12 +16,14 @@ const DefaultCard: React.FC<DefaultCardProps> = ({
         </div>
         <div>
           <div className="text-sm font-semibold">{headline}</div>
-          <div className="text-xs text-helperText">{description}</div>
+          <div className="text-xs text-helperText dark:text-darkDisabled">
+            {description}
+          </div>
         </div>
       </div>
       <div>
         {label && (
-          <span className=" bg-lightBackground rounded-md p-1 text-xxs font-germania tracking-wider">
+          <span className="bg-lightBackground dark:bg-darkBackground rounded-md p-1.5 text-xxs font-germania tracking-wider">
             {label}
           </span>
         )}

@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import nextConnect from "next-connect";
 import prisma from "../../../../prisma/prisma";
 
-import { authorization } from "../../middlewares";
+import { authorization } from "../../middleware";
 import { NextApiRequestAuthorized } from "../../../../shared/shared.interface";
 
 const UploadAvatar = nextConnect({
@@ -18,7 +18,7 @@ const UploadAvatar = nextConnect({
 
 UploadAvatar.post(
   async (req: NextApiRequestAuthorized, res: NextApiResponse) => {
-    await prisma.users
+    await prisma.user
       .update({
         where: { id: req.decoded.id },
         data: {

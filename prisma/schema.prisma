@@ -13,47 +13,90 @@ generator zod {
 
 datasource db {
   provider = "mongodb"
-  url      = env("DATABASE_URL")
+  url      = "mongodb+srv://Gabriel:tanasemarius@sport-app.megdj.mongodb.net/user?retryWrites=true&w=majority"
 }
 
-// model Images {
-//   id    String @id @map("_id") @default(dbgenerated()) @db.ObjectId
-//   avatar String @default("")
-//   galery String[]
-//   data Data[]
-//   created_at DateTime @default(now())
-// }
+model Plan {
+  id    String @id @map("_id") @default(dbgenerated()) @db.ObjectId
+  title String
+  description String
+  price Int
+  currency String
+  profile Profile @relation(fields: [profileId], references: [id])
+  profileId String @db.ObjectId
+  created_at DateTime @default(now())
+}
+model Event {
+  id    String @id @map("_id") @default(dbgenerated()) @db.ObjectId
+  title String
+  description String
+  place String
+  duration String
+  price Int
+  currency String
+  profile Profile  @relation(fields: [profileId], references: [id])
+  profileId String @db.ObjectId
+  created_at DateTime @default(now())
+}
 
-// model Videos {
-//   id    String @id @map("_id") @default(dbgenerated()) @db.ObjectId
-//   description String @default("")
-//   galery String[]
-//   data Data[]
-//   created_at DateTime @default(now())
-// }
+model Gallery {
+  id    String @id @map("_id") @default(dbgenerated()) @db.ObjectId
+  images String[]
+  profile Profile  @relation(fields: [profileId], references: [id])
+  profileId String @db.ObjectId
+  created_at DateTime @default(now())
+}
 
-// model Data {
-//   id    String  @id @default(dbgenerated()) @map("_id") @db.ObjectId
-//   images Images @relation(fields: [imagesId], references: [id])
-//   imagesId String @db.ObjectId()
-//   videos Videos? @relation(fields: [videosId], references: [id])
-//   videosId String @db.ObjectId()
-//   user Users?
-//   created_at DateTime @default(now())
-// }
+model Education {
+  id    String @id @map("_id") @default(dbgenerated()) @db.ObjectId
+  institution String
+  specialization String
+  label String?
+  profile Profile  @relation(fields: [profileId], references: [id])
+  profileId String @db.ObjectId
+  created_at DateTime @default(now())
+}
 
-model Users { 
+model WorkExperience {
+  id    String @id @map("_id") @default(dbgenerated()) @db.ObjectId
+  company String
+  position String
+  profile Profile  @relation(fields: [profileId], references: [id])
+  profileId String @db.ObjectId
+  created_at DateTime @default(now())
+}
+
+model Profile {
+  id    String  @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  created_at DateTime @default(now())
+  profileStatus String @default("UNCOMPLETED")
+  introduction String @default("")
+  testimonial String @default("")
+  sports String[]
+  sessionTypes String[]
+  sessionLocations String[]
+  education Education[]
+  workExperience WorkExperience[]
+  plans Plan[]
+  events Event[]
+  gallery Gallery?
+  user User @relation(fields: [userId], references: [id])
+  userId String @db.ObjectId
+}
+
+model User { 
   id    String  @id @default(dbgenerated()) @map("_id") @db.ObjectId
   email String  @unique
   firstName  String
   lastName  String
   password String
-  disabled Boolean? @default(true)
   isTrainer Boolean
-  deleted Boolean? @default(false)
-  // data Data @relation(fields: [dataId], references: [id])
-  // dataId String @db.ObjectId()
+  verifyToken String
   avatar String
-  testimonial String? @default("")
+  isPremium Boolean? @default(false)
+  deleted Boolean? @default(false)
+  disabled Boolean? @default(true)
+  profile Profile?
+  profileId String? @db.ObjectId
   created_at DateTime @default(now())
 }

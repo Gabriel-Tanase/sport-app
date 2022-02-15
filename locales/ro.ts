@@ -22,4 +22,9 @@ export const ro: Locales = {
   validationRePassword: "Parola nu coincide.",
   logoutSuccessfullyMessage: "Deconectare cu succes.",
   contactButton: "Contact",
+  specialization: 'Specializare:',
+  specializations: 'Specializari:',
+  warningSpecialization: "Specializarea activitatii nu este completata.",
+  warningEducation: "Categoria education nu este completata.",
+  warningWork: "Categoria work nu este completata.",
 };

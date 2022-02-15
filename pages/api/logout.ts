@@ -1,6 +1,6 @@
 import { NextApiResponse } from "next";
 import cookie from "cookie";
-import { authorization } from "./middlewares";
+import { authorization } from "./middleware";
 import nextConnect from "next-connect";
 
 import { NextApiRequestAuthorized } from "../../shared/shared.interface";

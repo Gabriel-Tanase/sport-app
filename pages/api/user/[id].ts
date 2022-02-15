@@ -15,7 +15,7 @@ const GetUserById = nextConnect({
 });
 
 GetUserById.get(async (req: NextApiRequest, res: NextApiResponse) => {
-  const user = await prisma.users.findUnique({
+  const user = await prisma.user.findUnique({
     where: {
       id: req.query.id,
     },

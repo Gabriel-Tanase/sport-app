@@ -100,6 +100,7 @@ MyApp.getInitialProps = async (appContext: AppContext) => {
       isLoggedIn: true,
     },
   };
+  console.log("USEER:::", user);
 
   return appProps;
 };

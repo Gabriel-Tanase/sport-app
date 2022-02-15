@@ -1,5 +1,4 @@
 import { User } from "../../shared/shared.interface";
-
 export interface ProfileHeaderProps {
   currentUser: User;
   isOwner: boolean;

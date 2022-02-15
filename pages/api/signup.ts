@@ -4,9 +4,9 @@ import { validation } from "../../shared/regExValidation";
 import { hash } from "bcrypt";
 import { isEmpty, isNil } from "lodash";
 import nextConnect from "next-connect";
-
+import cuid from 'cuid'
 import { generateHexColor } from "../../shared/utils";
-import { schema } from "../../schemas/users";
+import { schema } from "../../schemas/user";
 
 const Signup = nextConnect({
   onError(error, req: NextApiRequest, res: NextApiResponse) {
@@ -21,7 +21,7 @@ const Signup = nextConnect({
 
 Signup.post(async (req: NextApiRequest, res: NextApiResponse) => {
   const { firstName, lastName, email, password, isTrainer } = req.body;
-  const userAlreadyExist = await prisma.users.findUnique({
+  const userAlreadyExist = await prisma.user.findUnique({
     where: {
       email: email,
     },
@@ -40,30 +40,49 @@ Signup.post(async (req: NextApiRequest, res: NextApiResponse) => {
     });
   }
 
+  const verifyToken = cuid();
+
   if (validName && validEmail && validPassword && validIsTrainer) {
     hash(password, 12, async (err, hash) => {
       if (!err) {
-        const userData = {
+
+        schema.parse({ 
           firstName,
           lastName,
           email,
           password: hash,
           isTrainer,
-          avatar: generateHexColor(),
-        };
-        schema.parse(userData);
-        return await prisma.users
+          verifyToken,
+          avatar: generateHexColor()
+        });
+        
+        return await prisma.user
           .create({
-            data: userData,
+            data: {
+              firstName,
+              lastName,
+              email,
+              password: hash,
+              isTrainer,
+              verifyToken,
+              avatar: generateHexColor(),
+              profile: {
+                create: {
+                  sports: [],
+                  sessionTypes: [],
+                  sessionLocations: []
+                }
+              }}
           })
           .then(() => {
+            // [TBI] Send confirmation email
             return res.status(201).json({
               message: "User was created.",
             });
           })
-          .catch(() => {
+          .catch((e) => {
             return res.status(401).json({
-              message: "Something went wrong, the user can't be created.",
+              message: "Something went wrong, the user can't be created, " + e.message,
             });
           });
       } else

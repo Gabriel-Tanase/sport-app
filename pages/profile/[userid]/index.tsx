@@ -4,7 +4,9 @@ import Router from "next/router";
 import { useSelector } from "react-redux";
 import { getUser } from "../../../redux/selectors";
 
-import { PagePropsType, User } from "../../../shared/shared.interface";
+import { PagePropsType } from "../../../shared/shared.interface";
+import { Profile } from "../../../schemas/profile";
+import { User } from "../../../schemas/user";
 
 import { ProfileHeader } from "../../../components/Profile/ProfileHeader";
 
@@ -14,6 +16,7 @@ import ProfileBody from "../../../components/Profile/ProfileBody";
 
 export interface UserProfileProps extends PagePropsType {
   currentUser: User;
+  currentProfile: Profile;
 }
 
 const UserProfile: React.FC<UserProfileProps> = (props) => {
@@ -40,6 +43,7 @@ export const getServerSideProps = async (
       cookie: cookie!,
     },
   });
+
   if (request.status === 401 && !context.req) {
     // Unauthenticated on client side, manipulate router
     Router.replace(Paths.Authentication.path);
@@ -55,6 +59,7 @@ export const getServerSideProps = async (
   }
 
   const response = await request.json();
+
   return {
     props: {
       currentUser: response,

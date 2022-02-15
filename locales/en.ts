@@ -21,4 +21,9 @@ export const en: Locales = {
   validationRePassword: "Password don't match.",
   logoutSuccessfullyMessage: "Logout successfully.",
   contactButton: "Contact",
+  specialization: 'Specialization:',
+  specializations: 'Specializations:',
+  warningSpecialization: "Please complete your activity specialization.",
+  warningEducation: "Education category is not completed.",
+  warningWork: "Work experience category is not completed.",
 };

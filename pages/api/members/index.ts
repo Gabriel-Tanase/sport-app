@@ -2,7 +2,7 @@ import { NextApiResponse } from "next";
 import { isEmpty } from "lodash";
 import nextConnect from "next-connect";
 import prisma from "../../../prisma/prisma";
-import { authorization } from "../middlewares";
+import { authorization } from "../middleware";
 import { NextApiRequestAuthorized } from "../../../shared/shared.interface";
 
 const GetUsers = nextConnect({
@@ -17,12 +17,11 @@ const GetUsers = nextConnect({
 });
 
 GetUsers.get(async (req: NextApiRequestAuthorized, res: NextApiResponse) => {
-  const users = await prisma.users.findMany({
+  const users = await prisma.user.findMany({
     where: {
       isTrainer: req.query.trainersOnly === "true",
     },
   });
-  console.log(req.query.trainersOnly);
 
   if (!isEmpty(users)) {
     return res.status(200).send({

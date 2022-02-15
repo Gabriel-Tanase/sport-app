@@ -2,9 +2,11 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 
 import { NaviIconProps } from "../Navigation.interface";
+
 import { validation } from "../../../shared/regExValidation";
 import { IMAGE_PLACEHOLDER_BASE64 } from "../../../shared/shared.const";
 import { useTranslation } from "../../../shared/hooks/useTranslation";
+import { shadeColor } from "../../../shared/utils";
 
 const NavigationIcon: React.FC<NaviIconProps> = ({
   icon,
@@ -49,7 +51,12 @@ const NavigationIcon: React.FC<NaviIconProps> = ({
             className="w-full h-full flex justify-center items-center rounded-inherit"
             style={{ backgroundColor: icon as string }}
           >
-            <p className="text-xl">{firstName[0].toUpperCase()}</p>
+            <p
+              className="text-xl"
+              style={{ color: shadeColor(icon as string) }}
+            >
+              {firstName[0].toUpperCase()}
+            </p>
           </div>
         ) : typeof icon === "string" ? (
           <div className="w-full">

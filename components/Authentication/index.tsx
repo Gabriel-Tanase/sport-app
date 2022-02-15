@@ -65,6 +65,7 @@ export const Authentication = () => {
           clearErrors();
           reset(null);
           if (typeOfRequest === Endpoint.Signup) {
+            // [TBI] After user successfully register display a modal to inform him about confirmation email
             postAuth(Endpoint.Login, {
               email: bodyData.email,
               password: bodyData.password,

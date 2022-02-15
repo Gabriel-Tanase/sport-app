@@ -12,3 +12,13 @@ export enum SportType {
   Swim = "Swim",
   Box = "Box",
 }
+
+export enum ProfileStatus {
+  UNCOMPLETED = 'UNCOMPLETED',
+  COMPLETED = 'COMPLETED',
+}
+
+export enum Currency {
+  RON = 'RON',
+  EUR = 'EUR',
+}

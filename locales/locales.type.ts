@@ -19,4 +19,9 @@ export type Locales = {
   validationRePassword: string;
   logoutSuccessfullyMessage: string;
   contactButton: string;
+  specialization: string;
+  specializations: string;
+  warningSpecialization: string;
+  warningEducation: string;
+  warningWork: string;
 };

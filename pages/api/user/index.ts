@@ -1,8 +1,8 @@
 import { NextApiResponse } from "next";
-import { isEmpty } from "lodash";
+import isEmpty from "lodash/isEmpty";
 import nextConnect from "next-connect";
 import prisma from "../../../prisma/prisma";
-import { authorization } from "../middlewares";
+import { authorization } from "../middleware";
 
 import { NextApiRequestAuthorized } from "../../../shared/shared.interface";
 
@@ -19,10 +19,21 @@ const GetCurrentUser = nextConnect({
 
 GetCurrentUser.get(
   async (req: NextApiRequestAuthorized, res: NextApiResponse) => {
-    const user = await prisma.users.findUnique({
+    const user = await prisma.user.findUnique({
       where: {
         id: req.decoded.id,
       },
+      include: {
+        profile: {
+          include: {
+            gallery: true,
+            plans: true,
+            events: true,
+            education: true,
+            workExperience: true
+          }
+        }
+      }
     });
 
     if (!isEmpty(user)) {

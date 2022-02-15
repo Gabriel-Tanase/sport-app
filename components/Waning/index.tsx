@@ -28,7 +28,10 @@ const Warning: React.FC<WarningProps> = ({
 
   return (
     <div className="relative">
-      <button onClick={onClickWarning} className="group text-yellowWarning">
+      <button
+        onClick={onClickWarning}
+        className="group text-yellowWarning ml-2"
+      >
         <TiWarning size={size} />
         {infoMessage && (
           <span
