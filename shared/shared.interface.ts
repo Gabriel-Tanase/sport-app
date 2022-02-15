@@ -41,5 +41,5 @@ export interface Profile extends ProfileSchema{
 }
 
 export interface User extends UserSchema {
-  profile: Profile
+  profile?: Profile
 }

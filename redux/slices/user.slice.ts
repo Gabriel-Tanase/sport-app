@@ -12,7 +12,6 @@ const initialState: User = {
   isTrainer: false,
   deleted: true,
   avatar: generateHexColor(),
-  testimonials: "",
 };
 
 export const userSlice = createSlice({
