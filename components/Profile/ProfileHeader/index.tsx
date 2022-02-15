@@ -32,7 +32,7 @@ export const ProfileHeader: React.FC<ProfileHeaderProps> = ({
   currentUser,
   isOwner,
 }) => {
-  const { firstName, avatar, testimonials } = currentUser;
+  const { firstName, avatar, profile } = currentUser;
   const dispatch = useDispatch();
   const router = useRouter();
   const [showAvatarModal, setShowAvatarModal] = useState(false);
@@ -89,7 +89,7 @@ export const ProfileHeader: React.FC<ProfileHeaderProps> = ({
           </div>
           <div className="absolute left-40 h-24 flex items-center pl-5">
             <p className="font-germania font-semibold text-helperText">
-              {testimonials}
+              {profile?.testimonial}
             </p>
           </div>
           {!isOwner && (
