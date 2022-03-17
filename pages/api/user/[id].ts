@@ -19,6 +19,17 @@ GetUserById.get(async (req: NextApiRequest, res: NextApiResponse) => {
     where: {
       id: req.query.id,
     },
+    include: {
+      profile: {
+        include: {
+          gallery: true,
+          plans: true,
+          events: true,
+          education: true,
+          workExperience: true
+        }
+      }
+    }
   });
 
   if (!isEmpty(user)) {
