@@ -51,7 +51,7 @@ const MyApp: React.FC<MyAppProps> = ({ Component, pageProps }) => {
     // <QueryClientProvider client={queryClient}>
     <Provider store={reduxStore}>
       <ThemeProvider defaultTheme="system" attribute="class">
-        {!isPending ? (
+        {false ? (
           <p className="text-center">Profil in pending, check email.</p>
         ) : (
           <>
