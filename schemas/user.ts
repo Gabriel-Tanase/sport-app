@@ -27,12 +27,12 @@ const jsonSchema: z.ZodSchema<Prisma.InputJsonValue> = z.lazy(() =>
 			};
 
 			export type User = z.infer<typeof schema>
-			export const schema = z.object({ id: z.string().min(25).optional(),email: z.string().email(),firstName: z.string(),lastName: z.string(),password: z.string(),isTrainer: z.boolean(),verifyToken: z.string(),avatar: z.string(),isPremium: z.boolean().optional(),deleted: z.boolean().optional(),disabled: z.boolean().optional(),profileId: z.string().optional(),created_at: z.union([z.string(), z.date()]).optional() });
-			export const empty = { email: '',firstName: '',lastName: '',password: '',isTrainer: false,verifyToken: '',avatar: '',isPremium: false,deleted: false,disabled: false,profileId: '',created_at: new Date() };
+			export const schema = z.object({ id: z.string().min(25).optional(),email: z.string().email(),firstName: z.string(),lastName: z.string(),password: z.string(),isTrainer: z.boolean(),verifyToken: z.string(),avatar: z.string(),isPremium: z.boolean().optional(),deleted: z.boolean().optional(),accountStatus: z.string().optional(),profileId: z.string().optional(),created_at: z.union([z.string(), z.date()]).optional() });
+			export const empty = { email: '',firstName: '',lastName: '',password: '',isTrainer: false,verifyToken: '',avatar: '',isPremium: false,deleted: false,accountStatus: '',profileId: '',created_at: new Date() };
 			 
 			export function toDraft() {
 				const data = { ...empty } as User;
-				const selected = schema.pick({ email: true,firstName: true,lastName: true,password: true,isTrainer: true,verifyToken: true,avatar: true,isPremium: true,deleted: true,disabled: true,profileId: true,created_at: true })
+				const selected = schema.pick({ email: true,firstName: true,lastName: true,password: true,isTrainer: true,verifyToken: true,avatar: true,isPremium: true,deleted: true,accountStatus: true,profileId: true,created_at: true })
 
 				return { data, schema: selected };
 			}

@@ -13,6 +13,7 @@ import { ProfileHeader } from "../../../components/Profile/ProfileHeader";
 import { BASE_URL } from "../../../services/service.const";
 import { Paths } from "../../../shared/paths.const";
 import ProfileBody from "../../../components/Profile/ProfileBody";
+import axios from "axios";
 
 export interface UserProfileProps extends PagePropsType {
   currentUser: User;
@@ -38,7 +39,7 @@ export const getServerSideProps = async (
 ) => {
   const cookie = context.req?.headers.cookie;
 
-  const request = await fetch(`${BASE_URL}api/user/${context.query.userid}`, {
+  const request = await axios(`${BASE_URL}api/user/${context.query.userid}`, {
     headers: {
       cookie: cookie!,
     },
@@ -58,11 +59,11 @@ export const getServerSideProps = async (
     return {};
   }
 
-  const response = await request.json();
+  const response = await request;
 
   return {
     props: {
-      currentUser: response,
+      currentUser: response.data,
     },
   };
 };

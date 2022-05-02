@@ -27,12 +27,12 @@ const jsonSchema: z.ZodSchema<Prisma.InputJsonValue> = z.lazy(() =>
 			};
 
 			export type Profile = z.infer<typeof schema>
-			export const schema = z.object({ id: z.string().min(25).optional(),created_at: z.union([z.string(), z.date()]).optional(),profileStatus: z.string().optional(),introduction: z.string().optional(),testimonial: z.string().optional(),sports: z.array(z.string()),sessionTypes: z.array(z.string()),sessionLocations: z.array(z.string()),userId: z.string() });
-			export const empty = { created_at: new Date(),profileStatus: '',introduction: '',testimonial: '',sports: [],sessionTypes: [],sessionLocations: [],userId: '' };
+			export const schema = z.object({ id: z.string().min(25).optional(),created_at: z.union([z.string(), z.date()]).optional(),introduction: z.string().optional(),testimonial: z.string().optional(),sports: z.array(z.string()),sessionTypes: z.array(z.string()),sessionLocations: z.array(z.string()),userId: z.string() });
+			export const empty = { created_at: new Date(),introduction: '',testimonial: '',sports: [],sessionTypes: [],sessionLocations: [],userId: '' };
 			 
 			export function toDraft() {
 				const data = { ...empty } as Profile;
-				const selected = schema.pick({ created_at: true,profileStatus: true,introduction: true,testimonial: true,sports: true,sessionTypes: true,sessionLocations: true,userId: true })
+				const selected = schema.pick({ created_at: true,introduction: true,testimonial: true,sports: true,sessionTypes: true,sessionLocations: true,userId: true })
 
 				return { data, schema: selected };
 			}

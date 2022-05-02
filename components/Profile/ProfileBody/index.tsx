@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { icon } from "../../../shared/icons";
 import { SportType } from "../../../shared/shared.enum";
 import DefaultCard from "../../Cards/DefaultCard";
@@ -15,10 +15,16 @@ import isEmpty from "lodash/isEmpty";
 import { useTranslation } from "../../../shared/hooks/useTranslation";
 import { Education } from "../../../schemas/education";
 import { WorkExperience } from "../../../schemas/workexperience";
+import { Modal } from "../../Modal";
 
-const { IoSchoolSharp, MdWork } = icon;
+const { IoSchoolSharp, MdOutlineModeEditOutline } = icon;
+
+const initialModalConfig = {
+  display: false,
+};
 
 const ProfileBody: React.FC<ProfileBodyProps> = ({ currentUser, isOwner }) => {
+  const [modalConfig, setModalConfig] = useState(initialModalConfig);
   const { translate } = useTranslation();
 
   const { profile } = currentUser;
@@ -69,6 +75,16 @@ const ProfileBody: React.FC<ProfileBodyProps> = ({ currentUser, isOwner }) => {
     ));
   };
 
+  const onClickEditSpecialization = () => {
+    setModalConfig({
+      display: true,
+    });
+  };
+
+  const onClickCloseModal = () => {
+    setModalConfig(initialModalConfig);
+  };
+
   return (
     <div className="py-2 bg-red-10">
       <div className="px-2 mb-2">
@@ -83,34 +99,56 @@ const ProfileBody: React.FC<ProfileBodyProps> = ({ currentUser, isOwner }) => {
         </p>
         <div className="text-sm">
           {
-            <div className="flex items-center">
+            <div className="flex items-center relative">
               <p className="text-disabled dark:text-darkDisabled mr-2">
                 {profile?.sports.length > 1
                   ? translate.specialization
                   : translate.specializations}
               </p>
               {renderSportLabels(profile?.sports)}
+              <button
+                onClick={onClickEditSpecialization}
+                className="backgroundColor shadow-md rounded-full p-1 ml-3 transition-all hover:scale-105 text-black dark:text-white border border-disabled dark:border-darkDisabled"
+              >
+                <MdOutlineModeEditOutline size={14} />
+              </button>
             </div>
           }
         </div>
       </div>
-      <SectionDivider sectionName={SectionType.INTRODUCTION} />
-      <div className="p-2">
-        <p className="text-xxs text-disabled dark:text-darkDisabled">
+      <SectionDivider
+        displayEditButton={isOwner}
+        sectionName={SectionType.INTRODUCTION}
+      />
+      <div>
+        <p className="text-xxs text-disabled dark:text-darkDisabled ml-2">
           SOON: Video description
         </p>
-        <p>
-          Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industry standard dummy text ever
-          since the 1500s, when an unknown printer took a galley of type and
-          scrambled it to make a type specimen book
-        </p>
+        {isEmpty(profile.introduction) ? (
+          <Warning size={22} infoMessage={translate.warningEducation} />
+        ) : (
+          <p className="p-2">
+            Lorem Ipsum is simply dummy text of the printing and typesetting
+            industry. Lorem Ipsum has been the industry standard dummy text ever
+            since the 1500s, when an unknown printer took a galley of type and
+            scrambled it to make a type specimen book
+          </p>
+        )}
       </div>
-      <SectionDivider sectionName={SectionType.EDUCATION} />
+      <SectionDivider
+        displayEditButton={isOwner}
+        sectionName={SectionType.EDUCATION}
+      />
       {renderEducationCards(profile?.education)}
-      <SectionDivider sectionName={SectionType.WORK} />
+      <SectionDivider
+        displayEditButton={isOwner}
+        sectionName={SectionType.WORK}
+      />
       {renderWorkCards(profile?.workExperience)}
-      <SectionDivider sectionName={SectionType.ACTIVITY} />
+      <SectionDivider
+        displayEditButton={isOwner}
+        sectionName={SectionType.ACTIVITY}
+      />
       <div className="ml-1">
         {/* currentUser.profile.trainingInteraction */}
         <div>
@@ -124,22 +162,36 @@ const ProfileBody: React.FC<ProfileBodyProps> = ({ currentUser, isOwner }) => {
           <span className="ml-1">Downtown Fitness</span>
         </div>
       </div>
-      <SectionDivider sectionName={SectionType.GALLERY} />
+      <SectionDivider
+        displayEditButton={isOwner}
+        sectionName={SectionType.GALLERY}
+      />
       {/* currentUser.profile.gallery.images */}
       {/* image carousel */}
       <p>image carousel</p>
-      <SectionDivider sectionName={SectionType.PLAN} />
+      <SectionDivider
+        displayEditButton={isOwner}
+        sectionName={SectionType.PLAN}
+      />
       {/* currentUser.plans */}
       <div className="flex">
         <PlanCard />
         <PlanCard />
         <PlanCard />
       </div>
-      <SectionDivider sectionName={SectionType.EVENTS} />
+      <SectionDivider
+        displayEditButton={isOwner}
+        sectionName={SectionType.EVENTS}
+      />
       <div className="flex">
         <EventCard />
         <EventCard />
       </div>
+      {modalConfig.display && (
+        <Modal onClickClose={onClickCloseModal}>
+          <p>Lorem ipsum</p>
+        </Modal>
+      )}
     </div>
   );
 };

@@ -7,6 +7,7 @@ import { WorkExperience } from "../schemas/workexperience";
 import { Gallery } from "../schemas/gallery";
 import { Profile as ProfileSchema} from '../schemas/profile'
 import { User as UserSchema } from "../schemas/user";
+import { string } from "zod";
 
 declare global {
   namespace React {
@@ -42,4 +43,10 @@ export interface Profile extends ProfileSchema{
 
 export interface User extends UserSchema {
   profile?: Profile
+}
+
+export interface AccountStatusInterface {
+  PENDING: string;
+  UNCOMPLETED: string;
+  ACTIVATED: string;
 }

@@ -13,9 +13,10 @@ export enum SportType {
   Box = "Box",
 }
 
-export enum ProfileStatus {
+export enum AccountStatus {
+  PENDING = 'PENDING',
   UNCOMPLETED = 'UNCOMPLETED',
-  COMPLETED = 'COMPLETED',
+  ACTIVATED = 'ACTIVATED',
 }
 
 export enum Currency {

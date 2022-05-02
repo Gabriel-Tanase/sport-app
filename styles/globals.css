@@ -2,7 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 @import url("./fontFaces.css");
-
+@import '@fontsource/roboto/300.css';
+@import '@fontsource/roboto/400.css';
+@import '@fontsource/roboto/500.css';
+@import '@fontsource/roboto/700.css';
 /* Custom class for tailwind */
 @layer components {
   .navi-icon {
@@ -17,6 +20,10 @@
   .backgroundColor {
     @apply bg-lightBackground dark:bg-darkBackground;
   }
+}
+
+button {
+  -webkit-tap-highlight-color: transparent;
 }
 
 input[type="file"] {

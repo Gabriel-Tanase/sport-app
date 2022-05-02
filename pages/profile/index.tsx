@@ -4,6 +4,7 @@ import Router from "next/router";
 import { BASE_URL } from "../../services/service.const";
 
 import { Paths } from "../../shared/paths.const";
+import axios from "axios";
 
 const Profile = () => {
   const router = useRouter();
@@ -18,7 +19,7 @@ const Profile = () => {
 Profile.getInitialProps = async ({ req, res }) => {
   const cookie = req?.headers.cookie;
 
-  const request = await fetch(`${BASE_URL}api/user`, {
+  const request = await axios(`${BASE_URL}api/user`, {
     headers: {
       cookie: cookie!,
     },
@@ -39,11 +40,11 @@ Profile.getInitialProps = async ({ req, res }) => {
     return {};
   }
 
-  const response = await request.json();
+  const response = await request;
 
   if (request.status >= 200) {
     res.writeHead(302, {
-      Location: `/profile/${response.id}`,
+      Location: `/profile/${response.data.id}`,
     });
     res.end();
   }

@@ -52,7 +52,7 @@
 				}
 			,
 				profile: {
-					columns: ['id','created_at','profileStatus','introduction','testimonial','sports','sessionTypes','sessionLocations','userId'],
+					columns: ['id','created_at','introduction','testimonial','sports','sessionTypes','sessionLocations','userId'],
 					relation: {
 						education: 'EducationToProfile',workExperience: 'ProfileToWorkExperience',plans: 'PlanToProfile',events: 'EventToProfile',gallery: 'GalleryToProfile',user: 'ProfileToUser'
 					},
@@ -62,7 +62,7 @@
 				}
 			,
 				user: {
-					columns: ['id','email','firstName','lastName','password','isTrainer','verifyToken','avatar','isPremium','deleted','disabled','profileId','created_at'],
+					columns: ['id','email','firstName','lastName','password','isTrainer','verifyToken','avatar','isPremium','deleted','accountStatus','profileId','created_at'],
 					relation: {
 						profile: 'ProfileToUser'
 					},

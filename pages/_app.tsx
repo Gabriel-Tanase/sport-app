@@ -10,19 +10,25 @@ import { initializeStore } from "../redux";
 
 import useCookie from "../shared/hooks/useCookie";
 
-import { QueryClient, QueryClientProvider } from "react-query";
+// import { QueryClient, QueryClientProvider } from "react-query";
 
 import Layout from "../components/Layout";
 
 import { MyAppProps } from "../shared/shared.interface";
 import { BASE_URL } from "../services/service.const";
 import { BRANDING_NAME } from "../shared/shared.const";
+import { AccountStatus } from "../shared/shared.enum";
 
 const MyApp: React.FC<MyAppProps> = ({ Component, pageProps }) => {
   const [deferredPrompt, setDeferredPrompt] = useState(null);
   const [cookie, setCookie] = useCookie("sport-app-installed", false);
+
   const { initialReduxState } = pageProps;
   const reduxStore = initializeStore(initialReduxState);
+
+  const isPending: boolean =
+    initialReduxState.user?.accountStatus == AccountStatus.PENDING;
+
   // const queryClient = new QueryClient();
 
   // Handle PWA installation process
@@ -45,16 +51,22 @@ const MyApp: React.FC<MyAppProps> = ({ Component, pageProps }) => {
     // <QueryClientProvider client={queryClient}>
     <Provider store={reduxStore}>
       <ThemeProvider defaultTheme="system" attribute="class">
-        <Layout deferredPrompt={deferredPrompt}>
-          <Head>
-            <title>{BRANDING_NAME}</title>
-            <meta
-              name="viewport"
-              content="initial-scale=1.0, width=device-width"
-            />
-          </Head>
-          <Component {...pageProps} deferredPrompt={deferredPrompt} />
-        </Layout>
+        {!isPending ? (
+          <p className="text-center">Profil in pending, check email.</p>
+        ) : (
+          <>
+            <Layout deferredPrompt={deferredPrompt}>
+              <Head>
+                <title>{BRANDING_NAME}</title>
+                <meta
+                  name="viewport"
+                  content="initial-scale=1.0, width=device-width"
+                />
+              </Head>
+              <Component {...pageProps} deferredPrompt={deferredPrompt} />
+            </Layout>
+          </>
+        )}
       </ThemeProvider>
     </Provider>
     // </QueryClientProvider>
@@ -100,7 +112,6 @@ MyApp.getInitialProps = async (appContext: AppContext) => {
       isLoggedIn: true,
     },
   };
-  console.log("USEER:::", user);
 
   return appProps;
 };

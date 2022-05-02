@@ -9,6 +9,9 @@ module.exports = {
   darkMode: "class", // or 'media' or 'class'
   theme: {
     extend: {
+      aspectRatio: {
+        '9/16': '9/16',
+      },
       screens: {
         sm: "480px",
         md: "768px",

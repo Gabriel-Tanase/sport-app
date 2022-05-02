@@ -69,7 +69,6 @@ model WorkExperience {
 model Profile {
   id    String  @id @default(dbgenerated()) @map("_id") @db.ObjectId
   created_at DateTime @default(now())
-  profileStatus String @default("UNCOMPLETED")
   introduction String @default("")
   testimonial String @default("")
   sports String[]
@@ -95,7 +94,7 @@ model User {
   avatar String
   isPremium Boolean? @default(false)
   deleted Boolean? @default(false)
-  disabled Boolean? @default(true)
+  accountStatus String? @default("PENDING")
   profile Profile?
   profileId String? @db.ObjectId
   created_at DateTime @default(now())

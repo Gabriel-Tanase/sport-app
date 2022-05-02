@@ -6,14 +6,13 @@ import Router from "next/router";
 import { BASE_URL } from "../../services/service.const";
 import { GetServerSidePropsContext } from "next";
 import TrainersList from "../../components/Trainers/TrainersList";
+import axios from "axios";
 
 const Trainers = ({ trainers }) => {
-  useEffect(() => {
-    console.log(trainers);
-  }, []);
+  useEffect(() => {}, []);
   return (
     <div className="h-full w-full flex justify-center">
-      <TrainersList trainers={trainers} />
+      <TrainersList trainers={triners} />
     </div>
   );
 };
@@ -23,7 +22,7 @@ export const getServerSideProps = async (
 ) => {
   const cookie = context.req?.headers.cookie;
 
-  const request = await fetch(`${BASE_URL}api/members?trainersOnly=true`, {
+  const request = await axios(`${BASE_URL}api/members?trainersOnly=true`, {
     headers: {
       cookie: cookie!,
     },
@@ -42,10 +41,10 @@ export const getServerSideProps = async (
     return {};
   }
 
-  const response = await request.json();
+  const response = await request;
   return {
     props: {
-      trainers: response?.users,
+      trainers: response.data.users,
     },
   };
 };
