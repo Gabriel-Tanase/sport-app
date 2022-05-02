@@ -17,7 +17,7 @@ const Warning: React.FC<WarningProps> = ({
     let countDown;
     if (showInfoMessage) {
       countDown = setTimeout(
-        () => (setShowInfoMessage(false), console.log("in in")),
+        () => setShowInfoMessage(false),
         durationMessage * 1000
       );
     }
