@@ -21,6 +21,17 @@ GetUsers.get(async (req: NextApiRequestAuthorized, res: NextApiResponse) => {
     where: {
       isTrainer: req.query.trainersOnly === "true",
     },
+    include: {
+      profile: {
+        include: {
+          gallery: true,
+          plans: true,
+          events: true,
+          education: true,
+          workExperience: true
+        }
+      }
+    }
   });
 
   if (!isEmpty(users)) {

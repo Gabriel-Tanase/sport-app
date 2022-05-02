@@ -23,6 +23,17 @@ GetProfile.get(
       where: {
         id: req.query.id,
       },
+      include: {
+        profile: {
+          include: {
+            gallery: true,
+            plans: true,
+            events: true,
+            education: true,
+            workExperience: true
+          }
+        }
+      }
     });
 
     if (!isEmpty(profile)) {
