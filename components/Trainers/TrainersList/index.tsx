@@ -1,21 +1,28 @@
 import React from "react";
 import { TrainersList } from "../index.interface";
-import TrainerCard from "../TrainerCard";
+import { User } from "../../../shared/shared.interface";
+import UserCard from "../../Cards/UserCard/index";
 
 const TrainersList: React.FC<TrainersList> = ({ trainers }) => {
   const renderTrainersList = () =>
-    trainers.map((trainer) => (
-      <TrainerCard
+    trainers.map((trainer: User) => (
+      <UserCard
+        id={trainer.id}
         key={trainer.id}
         firstName={trainer.firstName}
         lastName={trainer.lastName}
-        avatar={trainer.avatar}
+        avatarUrl={trainer.avatar}
+        testimonial={"Lorem ipsum dolor sit amet it"}
+        sports={trainer.profile.sports}
       />
     ));
+
   return (
     <div>
       <div>search + filter + sort</div>
-      {renderTrainersList()}
+      <div className="flex flex-wrap justify-center">
+        {renderTrainersList()}
+      </div>
     </div>
   );
 };
