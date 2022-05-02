@@ -4,7 +4,7 @@ import { isNil } from "lodash";
 import { useDispatch } from "react-redux";
 import { setBadgeNotification } from "../../redux/slices/badgeNotification.slice";
 
-import { ModalProps } from "./Modal.Interface";
+import { AvatarModalProps } from "./Modal.Interface";
 
 import { FileInputButton } from "../FileInputButton";
 import { ProgressCircle } from "../ProgressCircle";
@@ -22,7 +22,7 @@ import Overlay from "../Overlay";
 
 const { IoClose } = icon;
 
-export const AvatarModal: React.FC<ModalProps> = ({
+export const AvatarModal: React.FC<AvatarModalProps> = ({
   id,
   closeModal,
   firstName,
