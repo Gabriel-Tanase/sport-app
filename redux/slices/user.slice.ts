@@ -8,7 +8,6 @@ const initialState: User = {
   firstName: "",
   lastName: "",
   password: "",
-  disabled: false,
   isTrainer: false,
   deleted: true,
   avatar: generateHexColor(),
