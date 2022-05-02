@@ -12,7 +12,7 @@ const Trainers = ({ trainers }) => {
   useEffect(() => {}, []);
   return (
     <div className="h-full w-full flex justify-center">
-      <TrainersList trainers={triners} />
+      <TrainersList trainers={trainers} />
     </div>
   );
 };
