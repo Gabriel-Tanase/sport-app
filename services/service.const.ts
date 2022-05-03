@@ -4,5 +4,5 @@ export const headers = {
 
 export const BASE_URL =
   process.env.NODE_ENV === "production"
-    ? "https://sport-app-gabrieltanase-trm.vercel.app/"
+    ? "https://sport-app-gabriel-tanase.vercel.app/"
     : "http://localhost:3000/";
